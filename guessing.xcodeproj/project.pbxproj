@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB06B3532626432300C4E938 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB06B3522626432300C4E938 /* ChartView.swift */; };
 		BBBC1BB225F74794006083DC /* guessingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBC1BB125F74794006083DC /* guessingApp.swift */; };
 		BBBC1BB425F74794006083DC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBC1BB325F74794006083DC /* ContentView.swift */; };
 		BBBC1BB625F74797006083DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBBC1BB525F74797006083DC /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB06B3522626432300C4E938 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		BBBC1BAE25F74794006083DC /* guessing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guessing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBC1BB125F74794006083DC /* guessingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guessingApp.swift; sourceTree = "<group>"; };
 		BBBC1BB325F74794006083DC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			children = (
 				BBBC1BB125F74794006083DC /* guessingApp.swift */,
 				BBBC1BB325F74794006083DC /* ContentView.swift */,
+				BB06B3522626432300C4E938 /* ChartView.swift */,
 				BBD5BCD9261456AD009189C5 /* HomeView.swift */,
 				BBBC1BB525F74797006083DC /* Assets.xcassets */,
 				BBBC1BBA25F74797006083DC /* Info.plist */,
@@ -265,6 +268,7 @@
 				BBD5BCDA261456AD009189C5 /* HomeView.swift in Sources */,
 				BBBC1BB425F74794006083DC /* ContentView.swift in Sources */,
 				BBBC1BB225F74794006083DC /* guessingApp.swift in Sources */,
+				BB06B3532626432300C4E938 /* ChartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

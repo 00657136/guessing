@@ -30,45 +30,76 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView{
-            ZStack{
+            ZStack(alignment: .top){
                 
-                Image("pink")
+                Image("海邊")
                     .resizable()
-                    .frame(height: UIScreen.main.bounds.height)
-                    .clipped()
+                    .scaledToFill()
+                    .frame(width:UIScreen.main.bounds.width,height: UIScreen.main.bounds.height)
+                    
                 
                 Color( red: 1, green: 1, blue: 1, opacity: 0.5)
+                
+                VStack{
+                    Spacer()
+                    Color( red: 139/255, green: 143/255, blue: 105/255, opacity: 0.7)
+                        .frame(width:UIScreen.main.bounds.width*3/4,height: UIScreen.main.bounds.height/2)
+                    Spacer()
+                }
                 
                 VStack(alignment: .center, spacing: 30){
                     
                     Spacer()
                     
-                    StrokeText(text: "我是字", width: 1, color: .black)
-                        .font(.system(size: 60,weight:.bold))
-                        .foregroundColor(Color.white)
-                    Spacer()
+//                    StrokeText(text: "我是字", width: 1, color: .black)
+//                        .font(.system(size: 60,weight:.bold))
+//                        .foregroundColor(Color.white)
                     
-                    LazyVGrid(columns: columns) {
-                        ForEach(GridImageArray.indices) { (index) in
-                            
-                            NavigationLink(
-                                destination: ContentView()){//view的到時候要放array
-                                Image(GridImageArray[index])
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.width/3)
-                                    .clipped()
-                            
-                            }
+                    Text("撩 妹 燈 謎")
+                        .font(.system(size: 20,weight:.bold))
+                        .foregroundColor(.init(red: 139/255, green: 143/255, blue: 105/255))
+                        .frame(width:UIScreen.main.bounds.width/4)
+                        .padding()
+                        .background(Color(.white))
+                    
+                    Color( red: 1, green: 1, blue: 1)
+                        .frame(width:UIScreen.main.bounds.width/2,height: 1)
+                    
+                    VStack(spacing:10){
+                        HStack(spacing:0){
+                            Text("10個幫助")
+                                .font(.system(size: 40,weight:.regular))
+                                .foregroundColor(.white)
+                            Text("直男")
+                                .font(.system(size: 40,weight:.black))
+                                .foregroundColor(.yellow)
+                            Text("的")
+                                .font(.system(size: 40,weight:.regular))
+                                .foregroundColor(.white)
                         }
-                        
+                        Text("創意撩妹語錄")
+                            .font(.system(size: 38,weight:.semibold))
+                            .foregroundColor(.white)
                     }
                     
+                    Color( red: 1, green: 1, blue: 1)
+                        .frame(width:UIScreen.main.bounds.width/2,height: 1)
+                    
+                    NavigationLink(destination: ContentView()){
+                        Text("- 點 擊 進 入 -")
+                            .font(.system(size: 20,weight:.bold))
+                            .foregroundColor(.white)
+                    }
+                        
+                    
                     Spacer()
+                    
+                    
+                    
+                    
                 }
                 
             }
-//            .background(Color(.black))
             .edgesIgnoringSafeArea(.all)
         }
     }

@@ -51,14 +51,30 @@ struct ContentView: View {
       
     ].shuffled()
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+        var btn_Back : some View { Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+            }) {
+            HStack(alignment: .center, spacing: 0) {
+                    Image(systemName: "chevron.backward")
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.white)
+                    Text("回首頁")
+                        .foregroundColor(.white)
+                        
+            }
+            .frame(width:UIScreen.main.bounds.width/5)
+            .background(Color(red: 139/255, green: 143/255, blue: 105/255,opacity: 0.7))
+            .cornerRadius(20)
+            }
+        }
+    
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
-                
-                Image("pink")
-                    .resizable()
-                    .frame(height: UIScreen.main.bounds.height)
-                    .clipped()
+                    
+                LinearGradient(gradient: Gradient(colors: [Color.init( red: 253/255, green: 208/255, blue: 201/255), Color.white]), startPoint: .top, endPoint: .bottom)
                 
                 VStack(alignment: .leading, spacing: 40){
                     
@@ -67,7 +83,7 @@ struct ContentView: View {
                     Image("\(Qindex+1)")
                         .resizable()
                         .scaledToFit()
-    //                    .opacity(0.7)
+    
                     
                     Spacer()
                     Spacer()
@@ -103,7 +119,7 @@ struct ContentView: View {
                         
                         
                     StrokeText(text: QuestionArr[Qindex].content, width: 1, color: .black)
-                        .font(.system(size: 30,weight:.bold))
+                        .font(.system(size: 35,weight:.bold))
                         .foregroundColor(Color.white)
                     
                        
@@ -210,7 +226,10 @@ struct ContentView: View {
     //        .background(Color(.black))
             .edgesIgnoringSafeArea(.all)
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: btn_Back)
     }
+    
 }
  
 struct ContentView_Previews: PreviewProvider {
