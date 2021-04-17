@@ -9,25 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @State private var columns = [
-                    GridItem(),
-                    GridItem(),
-                    GridItem()
-                ]
-    
-    @State private var GridImageArray = [
-                    "",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "",
-                    "",
-                    "8",
-                    "9",
-                    
-    ]
-    
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
@@ -50,10 +31,6 @@ struct HomeView: View {
                 VStack(alignment: .center, spacing: 30){
                     
                     Spacer()
-                    
-//                    StrokeText(text: "我是字", width: 1, color: .black)
-//                        .font(.system(size: 60,weight:.bold))
-//                        .foregroundColor(Color.white)
                     
                     Text("撩 妹 燈 謎")
                         .font(.system(size: 20,weight:.bold))

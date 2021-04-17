@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import AVFoundation
 
 struct ContentView: View {
     @State private var expand = false
@@ -52,28 +52,29 @@ struct ContentView: View {
     ].shuffled()
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-        var btn_Back : some View { Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-            }) {
-            HStack(alignment: .center, spacing: 0) {
-                    Image(systemName: "chevron.backward")
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.white)
-                    Text("回首頁")
-                        .foregroundColor(.white)
-                        
+    
+    
+    var btn_Back : some View {
+        Button(action: {
+            self.presentationMode.wrappedValue.dismiss()}) {
+                HStack(alignment: .center, spacing: 0) {
+                        Image(systemName: "chevron.backward")
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.white)
+                        Text("回首頁")
+                            .foregroundColor(.white)
+                                
+                }
+                .frame(width:UIScreen.main.bounds.width/5)
+                .background(Color(red: 139/255, green: 143/255, blue: 105/255,opacity: 0.7))
+                .cornerRadius(20)
             }
-            .frame(width:UIScreen.main.bounds.width/5)
-            .background(Color(red: 139/255, green: 143/255, blue: 105/255,opacity: 0.7))
-            .cornerRadius(20)
-            }
-        }
+    }
     
     var body: some View {
-        NavigationView{
+        
             ZStack(alignment: .top){
-                    
+                
                 LinearGradient(gradient: Gradient(colors: [Color.init( red: 253/255, green: 208/255, blue: 201/255), Color.white]), startPoint: .top, endPoint: .bottom)
                 
                 VStack(alignment: .leading, spacing: 40){
@@ -83,7 +84,7 @@ struct ContentView: View {
                     Image("\(Qindex+1)")
                         .resizable()
                         .scaledToFit()
-    
+                    
                     
                     Spacer()
                     Spacer()
@@ -91,7 +92,7 @@ struct ContentView: View {
                     Spacer()
                 }
                 Color( red: 1, green: 1, blue: 1, opacity: 0.5)
-
+                
                 
                 
                 
@@ -99,14 +100,14 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 5){
+                    HStack(alignment: .center, spacing: 5){
                         Spacer()
                         
                         StrokeText(text: "\(score) / \(Qindex+1)", width: 1, color: .black)
                             .font(.system(size: 25,weight:.bold))
                             .foregroundColor(Color.white)
                         
-                            
+                        
                         
                     }
                     
@@ -115,22 +116,22 @@ struct ContentView: View {
                     StrokeText(text: "問題\(Qindex+1):", width: 1, color: .black)
                         .font(.system(size: 40,weight:.bold))
                         .foregroundColor(Color.white)
-                        
-                        
-                        
+                    
+                    
+                    
                     StrokeText(text: QuestionArr[Qindex].content, width: 1, color: .black)
                         .font(.system(size: 35,weight:.bold))
                         .foregroundColor(Color.white)
                     
-                       
+                    
                     
                     
                     Spacer()
                     
-                //.......選項
+                    //.......選項
                     
                     VStack(alignment: .leading, spacing: 20){
-                     //......A選項
+                        //......A選項
                         OptionView(showAlert: $showAlert, ansLock: $ansLock, incorrect: $incorrect, score: $score, options: $QuestionArr[Qindex].options[0], answer: $QuestionArr[Qindex].answer, selectSection: $selectSection, section: "A.")
                             .onTapGesture {
                                 if ansLock == false {
@@ -148,7 +149,7 @@ struct ContentView: View {
                                     showAlert = true
                                 }
                             }
-                    //......B選項
+                        //......B選項
                         OptionView(showAlert: $showAlert, ansLock: $ansLock, incorrect: $incorrect, score: $score, options: $QuestionArr[Qindex].options[1], answer: $QuestionArr[Qindex].answer, selectSection: $selectSection, section: "B.")
                             .onTapGesture {
                                 if ansLock == false {
@@ -166,7 +167,7 @@ struct ContentView: View {
                                     showAlert = true
                                 }
                             }
-                    //......C選項
+                        //......C選項
                         OptionView(showAlert: $showAlert, ansLock: $ansLock, incorrect: $incorrect, score: $score, options: $QuestionArr[Qindex].options[2], answer: $QuestionArr[Qindex].answer, selectSection: $selectSection, section: "C.")
                             .onTapGesture {
                                 if ansLock == false {
@@ -189,49 +190,77 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 5){
-                        Spacer()
-                        if Qindex+1 < QuestionArr.count{
-                            Text("下一題")
-                                .font(.system(size: 20))
-                                .foregroundColor(Color.black)
+                    if Qindex+1 < QuestionArr.count{
+                        HStack(alignment: .center, spacing: 5){
+                            Spacer()
+                            
+                                Text("下一題")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Color.black)
+                            
+                            
+                            Spacer()
+                            
                         }
-                        else{
-                            Text("結束")
-                                .font(.system(size: 20))
-                                .foregroundColor(Color.black)
-                        }
-                        Spacer()
-            
-                    }
-                    .padding()
-                    .background(Color(red: 184/255, green: 222/255, blue: 241/255))
-                    .cornerRadius(20)
-                    .onTapGesture {
-                        if Qindex+1 < QuestionArr.count{
-                            Qindex += 1
-                            ansLock = false
-                            incorrect = ""
-                            selectSection = ""
+                        .padding()
+                        .background(Color(red: 184/255, green: 222/255, blue: 241/255))
+                        .cornerRadius(20)
+                        .onTapGesture {
+                            if Qindex+1 < QuestionArr.count{
+                                Qindex += 1
+                                ansLock = false
+                                incorrect = ""
+                                selectSection = ""
+                            }
                         }
                     }
                     
+                    else {
+                        NavigationLink(destination: ChartView(score: score)){
+                            HStack(alignment: .center, spacing: 5){
+                                Spacer()
+                                Text("結束")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Color.black)
+                                Spacer()
+                                
+                            }
+                            .padding()
+                            .background(Color(red: 184/255, green: 222/255, blue: 241/255))
+                            .cornerRadius(20)
+                        }
+                    }
                     
                     
                     Spacer()
                     
                 }.padding()
-            
+                
             }
-    //        .background(Color(.black))
+            //        .background(Color(.black))
             .edgesIgnoringSafeArea(.all)
-        }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btn_Back)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: btn_Back,
+                                trailing:
+                                    HStack(alignment: .center, spacing: 0) {
+                                        Text("唸題目")
+                                            .foregroundColor(.white)
+                                        
+                                        Image(systemName: "play.circle")
+                                            .aspectRatio(contentMode: .fit)
+                                            .foregroundColor(.white)
+                                                    
+                                    }
+                                    .frame(width:UIScreen.main.bounds.width/5)
+                                    .background(Color(red: 139/255, green: 143/255, blue: 105/255,opacity: 0.7))
+                                    .cornerRadius(20)
+            )
     }
     
 }
  
+
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
