@@ -9,6 +9,12 @@ import SwiftUI
 import AVFoundation
 
 struct ContentView: View {
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    @ObservedObject var synthesizerModel = SyntesizerModel()
+    @State private var isPaused = false
+    
     @State private var expand = false
     @State private var Qindex = 0
     @State private var score = 0
@@ -51,9 +57,6 @@ struct ContentView: View {
       
     ].shuffled()
     
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    
     var btn_Back : some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()}) {
@@ -70,6 +73,8 @@ struct ContentView: View {
                 .cornerRadius(20)
             }
     }
+    
+    
     
     var body: some View {
         
@@ -242,18 +247,41 @@ struct ContentView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: btn_Back,
                                 trailing:
-                                    HStack(alignment: .center, spacing: 0) {
-                                        Text("唸題目")
-                                            .foregroundColor(.white)
+                                    Button(action: {
                                         
-                                        Image(systemName: "play.circle")
-                                            .aspectRatio(contentMode: .fit)
-                                            .foregroundColor(.white)
-                                                    
+                                        let utterance =  AVSpeechUtterance(string: QuestionArr[Qindex].content)
+                                        utterance.voice = AVSpeechSynthesisVoice(language: "zh-TW")
+                                        synthesizerModel.speak(utterance)
+                                        
+                                    }){
+                                        HStack(alignment: .center, spacing: 3) {
+                                            if synthesizerModel.isSpeaking {
+                                                Text("暫停")
+                                                    .foregroundColor(.white)
+                                                Image(systemName: "pause")
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .foregroundColor(.white)
+                                            }
+                                            else if synthesizerModel.isPaused{
+                                                Text("繼續")
+                                                    .foregroundColor(.white)
+                                                Image(systemName: "playpause")
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .foregroundColor(.white)
+                                            }
+                                            else {
+                                                Text("唸題目")
+                                                    .foregroundColor(.white)
+                                                Image(systemName: "play")
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .foregroundColor(.white)
+                                            }
+                                                        
+                                        }
+                                        .frame(width:UIScreen.main.bounds.width/5)
+                                        .background(Color(red: 139/255, green: 143/255, blue: 105/255,opacity: 0.7))
+                                        .cornerRadius(20)
                                     }
-                                    .frame(width:UIScreen.main.bounds.width/5)
-                                    .background(Color(red: 139/255, green: 143/255, blue: 105/255,opacity: 0.7))
-                                    .cornerRadius(20)
             )
     }
     
@@ -366,4 +394,48 @@ struct OptionView: View {
             
         }
     }
+}
+
+
+class SyntesizerModel: NSObject,ObservableObject,AVSpeechSynthesizerDelegate {
+    @Published var isSpeaking = false
+    @Published var isPaused = false
+    private var synthesizer = AVSpeechSynthesizer()
+        override init() {
+            super.init()
+            synthesizer.delegate = self
+        }
+    
+    func speak(_ utterance: AVSpeechUtterance) {
+        
+            if !isSpeaking && !isPaused{
+                self.synthesizer.speak(utterance)
+            }
+            else if isSpeaking && !isPaused {
+                self.synthesizer.pauseSpeaking(at: AVSpeechBoundary.immediate)
+            }
+            else if isPaused && !isSpeaking{
+                self.synthesizer.continueSpeaking()
+            }
+        }
+
+        // MARK: AVSpeechSynthesizerDelegate
+        internal func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+                self.isSpeaking = true
+            }
+
+        internal func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
+                self.isSpeaking = false
+                self.isPaused = true
+            }
+
+        internal func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
+                self.isSpeaking = true
+                self.isPaused = false
+            }
+    
+        internal func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+                self.isSpeaking = false
+                self.isPaused = false
+            }
 }

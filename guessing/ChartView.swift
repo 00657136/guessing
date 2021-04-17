@@ -11,29 +11,32 @@ struct ChartView: View {
     
     @State var progressValue: Float = 0.0
     @State var score : Int
+    @State private var index = 0
     @State private var show = false
-    @State private var comments = [
-        "看來你已經掌握好"
+    @State private var commentsArr = [
+        comments(title: "臭直男", content: "你這個大木頭需要重新再回答一次"),
+        comments(title: "還算浪漫", content: "你已經懂得一點情調，建議你重新回答一次"),
+        comments(title: "情場高手", content: "恭喜你獲得浪漫因子，挑幾個喜歡的句子去實戰吧！"),
     ]
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-        var btn_Back : some View { Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-            }) {
-            HStack(alignment: .center, spacing: 0) {
-                    Image(systemName: "chevron.backward")
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.white)
-                    Text("上一頁")
-                        .foregroundColor(.white)
-                        
+    var btn_Back : some View {
+        Button(action: {
+            self.presentationMode.wrappedValue.dismiss()}) {
+                HStack(alignment: .center, spacing: 0) {
+                        Image(systemName: "chevron.backward")
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.white)
+                        Text("回測驗")
+                            .foregroundColor(.white)
+                                
+                }
+                .frame(width:UIScreen.main.bounds.width/5)
+                .background(Color(red: 139/255, green: 143/255, blue: 105/255,opacity: 0.7))
+                .cornerRadius(20)
             }
-            .frame(width:UIScreen.main.bounds.width/5)
-            .background(Color(red: 139/255, green: 143/255, blue: 105/255,opacity: 0.7))
-            .cornerRadius(20)
-            }
-        }
+    }
     
     var body: some View {
         
@@ -51,6 +54,17 @@ struct ChartView: View {
                         .frame(width: 150.0, height: 150.0)
                         .padding(40.0)
                         .onAppear(){
+                            
+                            if score > 7{
+                                index = 2
+                            }
+                            else if score > 4{
+                                index = 1
+                            }
+                            else {
+                                index = 0
+                            }
+                            
                             Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true){timer in
                                 progressValue += Float(score)/1000.0
                                 if progressValue >= Float(score)/10.0{
@@ -70,11 +84,11 @@ struct ChartView: View {
                         }
                         VStack{
                             
-                            StrokeText(text: comments[0], width: 1, color: .black)
+                            StrokeText(text: commentsArr[index].title, width: 1, color: .black)
                                 .font(.system(size: 30,weight:.bold))
                                 .foregroundColor(Color.white)
                             
-                            StrokeText(text: comments[0], width: 1, color: .black)
+                            StrokeText(text: commentsArr[index].content, width: 1, color: .black)
                                 .font(.system(size: 20,weight:.bold))
                                 .foregroundColor(Color.white)
                                 
@@ -143,4 +157,9 @@ struct ProgressBar: View {
                 .foregroundColor(.gray)
         }
     }
+}
+
+struct comments {
+    var title : String
+    var content : String
 }
