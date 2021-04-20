@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		BB06B3532626432300C4E938 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB06B3522626432300C4E938 /* ChartView.swift */; };
+		BB2CF40A262EC2E7006AF4A8 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB2CF409262EC2E7006AF4A8 /* correct.mp3 */; };
+		BB2CF40F262EC4A4006AF4A8 /* failure.mov in Resources */ = {isa = PBXBuildFile; fileRef = BB2CF40E262EC4A4006AF4A8 /* failure.mov */; };
+		BB2CF414262EC4EE006AF4A8 /* incorrect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB2CF413262EC4EE006AF4A8 /* incorrect.mp3 */; };
+		BB2CF419262EC625006AF4A8 /* fair.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB2CF418262EC625006AF4A8 /* fair.mp3 */; };
+		BB2CF41E262EC687006AF4A8 /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB2CF41D262EC687006AF4A8 /* win.mp3 */; };
 		BBBC1BB225F74794006083DC /* guessingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBC1BB125F74794006083DC /* guessingApp.swift */; };
 		BBBC1BB425F74794006083DC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBC1BB325F74794006083DC /* ContentView.swift */; };
 		BBBC1BB625F74797006083DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBBC1BB525F74797006083DC /* Assets.xcassets */; };
@@ -36,6 +41,11 @@
 
 /* Begin PBXFileReference section */
 		BB06B3522626432300C4E938 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		BB2CF409262EC2E7006AF4A8 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
+		BB2CF40E262EC4A4006AF4A8 /* failure.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = failure.mov; sourceTree = "<group>"; };
+		BB2CF413262EC4EE006AF4A8 /* incorrect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = incorrect.mp3; sourceTree = "<group>"; };
+		BB2CF418262EC625006AF4A8 /* fair.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fair.mp3; sourceTree = "<group>"; };
+		BB2CF41D262EC687006AF4A8 /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
 		BBBC1BAE25F74794006083DC /* guessing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guessing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBC1BB125F74794006083DC /* guessingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guessingApp.swift; sourceTree = "<group>"; };
 		BBBC1BB325F74794006083DC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +86,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB2CF408262E9E98006AF4A8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BB2CF409262EC2E7006AF4A8 /* correct.mp3 */,
+				BB2CF413262EC4EE006AF4A8 /* incorrect.mp3 */,
+				BB2CF40E262EC4A4006AF4A8 /* failure.mov */,
+				BB2CF418262EC625006AF4A8 /* fair.mp3 */,
+				BB2CF41D262EC687006AF4A8 /* win.mp3 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BBBC1BA525F74794006083DC = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +121,7 @@
 		BBBC1BB025F74794006083DC /* guessing */ = {
 			isa = PBXGroup;
 			children = (
+				BB2CF408262E9E98006AF4A8 /* Resources */,
 				BBBC1BB125F74794006083DC /* guessingApp.swift */,
 				BBBC1BB325F74794006083DC /* ContentView.swift */,
 				BB06B3522626432300C4E938 /* ChartView.swift */,
@@ -239,8 +262,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB2CF40A262EC2E7006AF4A8 /* correct.mp3 in Resources */,
 				BBBC1BB925F74797006083DC /* Preview Assets.xcassets in Resources */,
+				BB2CF414262EC4EE006AF4A8 /* incorrect.mp3 in Resources */,
+				BB2CF41E262EC687006AF4A8 /* win.mp3 in Resources */,
 				BBBC1BB625F74797006083DC /* Assets.xcassets in Resources */,
+				BB2CF40F262EC4A4006AF4A8 /* failure.mov in Resources */,
+				BB2CF419262EC625006AF4A8 /* fair.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

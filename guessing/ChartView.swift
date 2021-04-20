@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ChartView: View {
+    
+    var failurePlayer : AVPlayer{ AVPlayer.failurePlayer}
+    var fairPlayer : AVPlayer{ AVPlayer.fairPlayer}
+    var winPlayer : AVPlayer{ AVPlayer.winPlayer}
     
     @State var progressValue: Float = 0.0
     @State var score : Int
@@ -55,19 +60,22 @@ struct ChartView: View {
                         .padding(40.0)
                         .onAppear(){
                             
-                            if score > 7{
-                                index = 2
-                            }
-                            else if score > 4{
-                                index = 1
-                            }
-                            else {
-                                index = 0
-                            }
-                            
                             Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true){timer in
                                 progressValue += Float(score)/1000.0
                                 if progressValue >= Float(score)/10.0{
+                                    
+                                    if score > 7{
+                                        winPlayer.playFromStart()
+                                        index = 2
+                                    }
+                                    else if score > 4{
+                                        fairPlayer.playFromStart()
+                                        index = 1
+                                    }
+                                    else {
+                                        failurePlayer.playFromStart()
+                                        index = 0
+                                    }
                                     
                                     timer.invalidate()
                                     show = true
@@ -79,17 +87,15 @@ struct ChartView: View {
                     
                     
                     if show {
-                        if score == 10{
                             
-                        }
                         VStack{
                             
                             StrokeText(text: commentsArr[index].title, width: 1, color: .black)
-                                .font(.system(size: 30,weight:.bold))
+                                .font(.system(size: 40,weight:.bold))
                                 .foregroundColor(Color.white)
                             
                             StrokeText(text: commentsArr[index].content, width: 1, color: .black)
-                                .font(.system(size: 20,weight:.bold))
+                                .font(.system(size: 30,weight:.bold))
                                 .foregroundColor(Color.white)
                                 
                         }

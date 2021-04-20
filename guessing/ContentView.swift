@@ -10,6 +10,9 @@ import AVFoundation
 
 struct ContentView: View {
     
+    var correctPlayer: AVPlayer{ AVPlayer.correctPlayer }
+    var incorrectPlayer: AVPlayer{ AVPlayer.incorrectPlayer }
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @ObservedObject var synthesizerModel = SyntesizerModel()
@@ -143,10 +146,14 @@ struct ContentView: View {
                                     ansLock = true
                                     selectSection = "A."
                                     if QuestionArr[Qindex].options[0] == QuestionArr[Qindex].answer{
+                                        correctPlayer.playFromStart()
                                         score += 1
+                                        
                                     }
                                     else {
+                                        incorrectPlayer.playFromStart()
                                         incorrect = "A."
+                                       
                                     }
                                     
                                 }
@@ -161,10 +168,14 @@ struct ContentView: View {
                                     ansLock = true
                                     selectSection = "B."
                                     if QuestionArr[Qindex].options[1] == QuestionArr[Qindex].answer{
+                                        correctPlayer.playFromStart()
                                         score += 1
+                                        
                                     }
                                     else {
+                                        incorrectPlayer.playFromStart()
                                         incorrect = "B."
+                                        
                                     }
                                     
                                 }
@@ -179,10 +190,14 @@ struct ContentView: View {
                                     ansLock = true
                                     selectSection = "C."
                                     if QuestionArr[Qindex].options[2] == QuestionArr[Qindex].answer{
+                                        correctPlayer.playFromStart()
                                         score += 1
+                                        
                                     }
                                     else {
+                                        incorrectPlayer.playFromStart()
                                         incorrect = "C."
+                                        
                                     }
                                     
                                 }
@@ -439,3 +454,39 @@ class SyntesizerModel: NSObject,ObservableObject,AVSpeechSynthesizerDelegate {
                 self.isPaused = false
             }
 }
+
+extension AVPlayer {
+
+    static let correctPlayer: AVPlayer = {
+        guard let url = Bundle.main.url(forResource: "correct", withExtension:"mp3") else { fatalError("Failed to find sound file.") }
+        return AVPlayer(url: url)
+    }()
+
+    static let incorrectPlayer: AVPlayer = {
+        guard let url = Bundle.main.url(forResource: "incorrect", withExtension:"mp3") else { fatalError("Failed to find sound file.") }
+        return AVPlayer(url: url)
+    }()
+    
+    static let failurePlayer: AVPlayer = {
+        guard let url = Bundle.main.url(forResource: "failure", withExtension:"mov") else { fatalError("Failed to find sound file.") }
+        return AVPlayer(url: url)
+    }()
+    
+    static let fairPlayer: AVPlayer = {
+        guard let url = Bundle.main.url(forResource: "fair", withExtension:"mp3") else { fatalError("Failed to find sound file.") }
+        return AVPlayer(url: url)
+    }()
+    
+    static let winPlayer: AVPlayer = {
+        guard let url = Bundle.main.url(forResource: "win", withExtension:"mp3") else { fatalError("Failed to find sound file.") }
+        return AVPlayer(url: url)
+    }()
+
+    func playFromStart() {
+        seek(to: .zero)
+        play()
+    }
+
+}
+
+
